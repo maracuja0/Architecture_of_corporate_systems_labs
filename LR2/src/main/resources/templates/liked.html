@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Избранное пользователя</title>
+</head>
+<body>
+
+<h2>Избранное пользователя</h2>
+<a th:href="@{/}">На главную</a>
+<a th:href="@{/positions(userId=${userId})}">Вернуться в магазин</a>
+
+<ul>
+    <li th:each="pos : ${likedPositions}">
+        <span th:text="${pos.positionName}">Название</span> -
+        <span th:text="${pos.positionDesc}">Описание</span>
+        (<span th:text="${pos.positionType}">Тип</span>)
+
+        <form th:action="@{/liked}" method="post" style="display:inline;">
+            <input type="hidden" name="userId" th:value="${userId}" />
+            <input type="hidden" name="positionId" th:value="${pos.positionId}" />
+            <button type="submit">Убрать из избранного</button>
+        </form>
+    </li>
+</ul>
+
+</body>
+</html>
