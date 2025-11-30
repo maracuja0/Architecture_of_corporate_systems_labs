@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Пользователи</title>
+</head>
+<body>
+
+<h2>Выберите пользователя</h2>
+<a th:href="@{/}">На главную</a>
+<form th:action="@{/positions}" method="get">
+  <label for="userId">Пользователь:</label>
+  <select id="userId" name="userId">
+    <option th:each="u : ${users}"
+            th:value="${u.userId}"
+            th:text="${u.userFirstName + ' ' + u.userLastName}">
+    </option>
+  </select>
+  <button type="submit">Выбрать</button>
+</form>
+
+</body>
+</html>

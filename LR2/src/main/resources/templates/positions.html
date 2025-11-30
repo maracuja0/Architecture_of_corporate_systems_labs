@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин электроники</title>
+</head>
+<body>
+
+<h2>Магазин электроники</h2>
+<a th:href="@{/}">На главную</a>
+<a th:href="@{/liked(userId=${userId})}">Перейти в избранное</a>
+
+<ul>
+    <li th:each="pos : ${positions}">
+        <span th:text="${pos.positionName}">Название</span> -
+        <span th:text="${pos.positionDesc}">Описание</span>
+        (<span th:text="${pos.positionType}">Тип</span>)
+
+        <form th:action="@{/positions}" method="post" style="display:inline;">
+            <input type="hidden" name="userId" th:value="${userId}" />
+            <input type="hidden" name="positionId" th:value="${pos.positionId}" />
+
+            <th:block th:if="${likedIds.contains(pos.positionId)}">
+                <button type="submit" name="action" value="unlike">Убрать из избранного</button>
+            </th:block>
+            <th:block th:unless="${likedIds.contains(pos.positionId)}">
+                <button type="submit" name="action" value="like">Добавить в избранное</button>
+            </th:block>
+        </form>
+    </li>
+</ul>
+
+</body>
+</html>
